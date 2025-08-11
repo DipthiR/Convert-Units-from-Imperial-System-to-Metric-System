@@ -1,0 +1,65 @@
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button } from 'react-native';
+
+function UnitConverter() {
+  const [kmInputValue, setKmInputValue] = useState('');
+  const [kmConvertedValue, setKmConvertedValue] = useState('');
+
+  const [kgInputValue, setKgInputValue] = useState('');
+  const [kgConvertedValue, setKgConvertedValue] = useState('');
+
+  const convertKmToMiles = () => {
+    const km = parseFloat(kmInputValue);
+    if (!isNaN(km)) {
+      const miles = km / 1.60934;
+      setKmConvertedValue(`${miles.toFixed(2)} miles`);
+    } else {
+      setKmConvertedValue('Invalid input');
+    }
+  };
+
+  const convertKgToPounds = () => {
+    const kg = parseFloat(kgInputValue);
+    if (!isNaN(kg)) {
+      const pounds = kg * 2.20462;
+      setKgConvertedValue(`${pounds.toFixed(2)} pounds`);
+    } else {
+      setKgConvertedValue('Invalid input');
+    }
+  };
+
+  const clearFields = () => {
+    setKmInputValue('');
+    setKmConvertedValue('');
+    setKgInputValue('');
+    setKgConvertedValue('');
+  };
+
+  return (
+    <View>
+      <Text>Kilometers to Miles Converter</Text>
+      <TextInput
+        placeholder="Enter value in kilometers"
+        keyboardType="numeric"
+        value={kmInputValue}
+        onChangeText={(text) => setKmInputValue(text)}
+      />
+      <Button title="Convert" onPress={convertKmToMiles} />
+      <Text>{kmConvertedValue}</Text>
+
+      <Text>Kilograms to Pounds Converter</Text>
+      <TextInput
+        placeholder="Enter value in kilograms"
+        keyboardType="numeric"
+        value={kgInputValue}
+        onChangeText={(text) => setKgInputValue(text)}
+      />
+      <Button title="Convert" onPress={convertKgToPounds} />
+      <Text>{kgConvertedValue}</Text>
+
+      <Button title="Clear" onPress={clearFields} />
+    </View>
+  );
+}
+
+export default UnitConverter;
